@@ -21,7 +21,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",
     "build": "NODE_ENV=production webpack --config ./webpack.config.release.js",
-    "deploy:gh-pages": "git checkout gh-pages && npm run build && git add -f dist && git commit -m 'update dist' && git push && git checkout master"
+    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run build && git add -f dist && git commit -m 'update dist' && git push -f && git checkout master"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.0",
