@@ -3,10 +3,6 @@ import React from 'react';
 import styles from './Orderable.scss';
 
 class Orderable extends React.Component {
-  static defaultProps = {
-    axis: 'y',
-  };
-
   static propTypes = {
     axis: React.PropTypes.string,
     className: React.PropTypes.string,
@@ -16,7 +12,11 @@ class Orderable extends React.Component {
     logger: React.PropTypes.func,
     onChange: React.PropTypes.func.isRequired,
   };
-  
+
+  static defaultProps = {
+    axis: 'y',
+  };
+
   constructor(props) {
     super(props);
 
