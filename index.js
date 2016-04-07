@@ -1,1 +1,4 @@
-export { Reorderable as default } from './lib/Reorderable';
+var Reorderable = require('./dist/react-orderable');
+
+module.exports = Reorderable;
+

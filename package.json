@@ -16,13 +16,15 @@
   "files": [
     "index.js",
     "dist/react-orderable.css",
-    "lib/Reorderable.js",
-    "lib/Reorderable.scss"
+    "dist/react-orderable.js"
   ],
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js",
-    "build": "NODE_ENV=production webpack --config ./webpack.config.release.js",
-    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run build && git add -f dist && git commit -m 'update dist' && git push -f && git checkout master"
+    "prepublish": "npm run clean && npm run build:npm",
+    "clean": "rm -rf dist",
+    "build:gh-pages": "NODE_ENV=production webpack --config ./webpack.config.gh-pages.js",
+    "build:npm": "NODE_ENV=production webpack --config ./webpack.config.npm.js",
+    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && git add -f dist && git commit -m 'update dist' && git push -f && git checkout master"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.0",
