@@ -1,5 +1,11 @@
 React Orderable
 ===
+Features
+---
+- Drag handle
+- Animation
+- Vertical or horizontal axis
+
 Why react-orderable?
 ---
 Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case and I did not want to use the DnD API. I don't want an arbitrary placeable ghost image. Instead, I want the item to be constrained to a specific axis (vertical or horizontal).
