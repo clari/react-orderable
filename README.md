@@ -71,8 +71,3 @@ class Example extends React.Component {
 Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case. Also, I did not want to use the DnD API. While DnD provides a standard UI for drag and drop (ghost image), I wanted more control over the appearance (movement along an axis, no ghosting).
 
 Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa's Sortable](https://rubaxa.github.io/Sortable), you pass the order of the items into the component as props, and when the order changes, the component fires a callback with the changed ordering. This allows the order of items to be stored in a state container such as Redux.
-
-## TODO
-- Export css file
-- npm build should not require babel or scss
-- If I'm publishing a frontend library, should I make everything a peerdep?

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Immutable from 'immutable';
-import Orderable from '../lib/Orderable';
+import Orderable from '../src/Orderable';
 import React from 'react';
 import styles from './ListContainer.scss';
 

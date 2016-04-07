@@ -1,5 +1,5 @@
 var common = require('./webpack.config.common');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin'); // Extract css so it can be loaded in head
 var webpack = require('webpack');
 
 module.exports = {

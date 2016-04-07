@@ -20,15 +20,16 @@
     "dist/react-orderable.js"
   ],
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.dev.js",
-    "prepublish": "npm run clean && npm run build:npm",
-    "clean": "rm -rf dist",
     "build:gh-pages": "NODE_ENV=production webpack --config ./webpack.config.gh-pages.js",
     "build:npm": "NODE_ENV=production webpack --config ./webpack.config.npm.js",
-    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && git add -f dist && git commit -m 'update dist' && git push -f && git checkout master"
+    "clean": "rm -rf dist",
+    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && git add -f dist && git commit -m 'update dist' && git push -f && git checkout master",
+    "prepublish": "npm run clean && npm run build:npm",
+    "start": "webpack-dev-server --config ./webpack.config.dev.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.0",
+    "babel-cli": "^6.6.5",
     "babel-core": "^6.5.0",
     "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.0",

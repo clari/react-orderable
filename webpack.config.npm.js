@@ -1,17 +1,16 @@
 var common = require('./webpack.config.common');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin'); // Extract css so users don't have to compile scss
 
 module.exports = {
-  entry: './lib/library',
+  entry: './src/library',
   output: {
     filename: 'react-orderable.js',
-    library: 'ReactOrderable',
-    libraryTarget: 'umd',
     path: 'dist',
+    libraryTarget: 'commonjs2',
   },
   externals: {
-    react: 'React',
+    classnames: true,
+    react: true,
   },
   module: {
     loaders: [

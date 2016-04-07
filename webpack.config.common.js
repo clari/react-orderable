@@ -6,7 +6,7 @@ module.exports = {
     test: /\.js$/,
     include: [
       path.join(__dirname, 'app'),
-      path.join(__dirname, 'lib')
+      path.join(__dirname, 'src')
     ],
     loaders: ['babel', 'eslint']
   },
@@ -14,7 +14,7 @@ module.exports = {
     test: /\.scss$/,
     include: [
       path.join(__dirname, 'app'),
-      path.join(__dirname, 'lib')
+      path.join(__dirname, 'src')
     ],
     loaders: ['style', 'css?localIdentName=react-orderable-[name]-[local]', 'postcss', 'sass']
   },
