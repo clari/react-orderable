@@ -1,9 +1,26 @@
 {
-  "name": "react-reorderable",
+  "name": "react-orderable",
   "version": "0.1.0",
-  "private": true,
+  "author": "Matthew King <mking@clari.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clariussystems/react-orderable"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "reorderable",
+    "sortable"
+  ],
+  "files": [
+    "index.js",
+    "lib/Reorderable.js",
+    "lib/Reorderable.scss"
+  ],
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --config ./webpack.config.dev.js",
+    "build": "webpack --config ./webpack.config.release.js"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.0",
@@ -21,6 +38,7 @@
     "eslint-loader": "^1.3.0",
     "eslint-plugin-babel": "^3.1.0",
     "eslint-plugin-react": "^3.16.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "immutable": "^3.7.6",
     "node-sass": "^3.4.0",
     "postcss-loader": "^0.8.0",

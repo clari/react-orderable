@@ -1,6 +1,6 @@
-React Reorderable
+React Orderable
 ===
 TODO
 ---
-- Replace itemGetter with children
 - Export css file
+- GH pages demo

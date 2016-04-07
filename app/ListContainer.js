@@ -11,7 +11,7 @@ class ListContainer extends React.Component {
     itemWidth: 120,
     verticalItemIds: Immutable.Range(0, 5).map(i => `Vert ${i}`).toList(),
   };
-  
+
   constructor(props) {
     super(props);
     
