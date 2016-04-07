@@ -20,16 +20,13 @@ class Example extends React.Component {
   }
 
   // Render item callback
-  // Why doesn't Reorderable use children? We want itemIds to completely drive the order of the item components.
   getItem(id, options) {
-    // Mousedown handler is provided in options.
-    // We need to .
-
+    // Attach the mousedown handler to the drag handle.
     return (
       <div className="example-item">
         <div
           className="example-handle"
-          onMouseDown={options.handleMouseDown}
+          onMouseDown={options.onMouseDown}
         />
         {id}
       </div>
