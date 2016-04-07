@@ -23,6 +23,7 @@
     "build:gh-pages": "NODE_ENV=production webpack --config ./webpack.config.gh-pages.js",
     "build:npm": "NODE_ENV=production webpack --config ./webpack.config.npm.js",
     "clean": "rm -rf build",
+    "commit-dist": "git checkout dist && git reset --hard master && npm run prepublish && git add -f react-orderable.* && git commit -m 'update build' && git push -f && git checkout master",
     "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && git add -f build && git commit -m 'update build' && git push -f && git checkout master",
     "prepublish": "npm run clean && npm run build:npm",
     "start": "webpack-dev-server --config ./webpack.config.dev.js"
