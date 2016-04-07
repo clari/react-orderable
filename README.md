@@ -1,7 +1,5 @@
 # React Orderable
-Reorderable list component
-
-[Demo](http://clariussystems.github.io/react-orderable)
+Reorderable list component - [Demo](http://clariussystems.github.io/react-orderable)
 
 ## Features
 - Drag handle
