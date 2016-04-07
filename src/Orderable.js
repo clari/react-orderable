@@ -20,9 +20,12 @@ class Orderable extends React.Component {
   constructor(props) {
     super(props);
 
+    const { itemIds } = props;
     this.state = {
       currentMousePosition: 0,
       draggingId: null,
+      itemIds,
+      originalItemIds: null,
       originalItemPosition: 0,
       startMousePosition: 0,
     };
@@ -33,8 +36,17 @@ class Orderable extends React.Component {
   }
 
   clamp(itemPosition) {
-    const { itemIds, itemSize } = this.props;
+    const { itemSize } = this.props;
+    const { itemIds } = this.state;
     return Math.max(0, Math.min(itemSize * (itemIds.length - 1), itemPosition));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.isDragging(this.state)) {
+      this.setState({
+        itemIds: nextProps.itemIds,
+      });
+    }
   }
 
   getItemPositionProperty() {
@@ -53,12 +65,15 @@ class Orderable extends React.Component {
   }
 
   handleMouseDown(id, e) {
-    const { itemIds, itemSize } = this.props;
+    const { itemSize } = this.props;
+    const { itemIds } = this.state;
     e.stopPropagation();
     const draggingIndex = itemIds.indexOf(id);
     this.setState({
       currentMousePosition: e[this.getMousePositionProperty()],
       draggingId: id,
+      // Save the original item id order so that we can use transitions
+      // During a drag, the item id set does not change
       originalItemIds: itemIds,
       originalItemPosition: itemSize * draggingIndex,
       startMousePosition: e[this.getMousePositionProperty()],
@@ -69,8 +84,8 @@ class Orderable extends React.Component {
   }
 
   handleMouseMove(e) {
-    const { itemIds, itemSize, onChange } = this.props;
-    const { draggingId, originalItemPosition, startMousePosition } = this.state;
+    const { itemSize } = this.props;
+    const { draggingId, itemIds, originalItemPosition, startMousePosition } = this.state;
     const currentMousePosition = e[this.getMousePositionProperty()];
     this.setState({
       currentMousePosition,
@@ -106,21 +121,27 @@ class Orderable extends React.Component {
 
     if (newItemIds) {
       this.log('new item ids', newItemIds);
-      onChange(newItemIds);
+      this.setState({
+        itemIds: newItemIds,
+      });
     }
   }
 
   handleMouseUp() {
+    const { onChange } = this.props;
+
     this.setState({
       draggingId: null,
+    }, () => {
+      onChange(this.state.itemIds);
     });
 
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
   }
 
-  isDragging() {
-    const { draggingId } = this.state;
+  isDragging(state) {
+    const { draggingId } = state;
     return draggingId !== null;
   }
 
@@ -136,23 +157,19 @@ class Orderable extends React.Component {
       axis,
       className,
       itemGetter,
-      itemIds,
       itemSize,
     } = this.props;
 
     const {
       currentMousePosition,
       draggingId,
+      itemIds,
       originalItemIds,
       originalItemPosition,
       startMousePosition,
     } = this.state;
 
-    const sortedItemIds = this.isDragging() ?
-      itemIds.slice().sort((id1, id2) => {
-        return originalItemIds.indexOf(id1) - originalItemIds.indexOf(id2);
-      }) :
-      itemIds;
+    const sortedItemIds = this.isDragging(this.state) ? originalItemIds : itemIds;
 
     return (
       <div
@@ -172,7 +189,7 @@ class Orderable extends React.Component {
             className: classNames(
               styles.item,
               styles[`item--${axis}`],
-              this.isDragging() && styles['item--dragging'],
+              this.isDragging(this.state) && styles['item--dragging'],
               draggingItem && styles['item--draggingItem'],
               itemComponent.props.className
             ),

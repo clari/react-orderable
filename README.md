@@ -1,4 +1,7 @@
 # React Orderable
+## TODO before next release
+- The item id set cannot be changed during a drag. I think this is a bug and causes us to miss updates. I mean, if the item id set changes during a drag, this invalidates the current order. The dragged item might not even exist any more.
+
 ## Demo
 [Click here](http://clariussystems.github.io/react-orderable)
 
@@ -66,7 +69,10 @@ class Example extends React.Component {
 }
 ```
 
-## Why react-orderable?
+## Comparison to other libraries
 Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case. Also, I did not want to use the DnD API. While DnD provides a standard UI for drag and drop (ghost image), I wanted more control over the appearance (movement along an axis, no ghosting).
 
 Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa Sortable](https://rubaxa.github.io/Sortable), the state of the component is passed in as props, rather than maintained internally. This allows the order of items to be stored in a state container such as Redux.
+
+## Edge case behavior
+- Animation is off when not dragging. This avoids having items move when the props change.
