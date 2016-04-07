@@ -1,6 +1,7 @@
 # React Orderable
 ## TODO before next release
 - The item id set cannot be changed during a drag. I think this is a bug and causes us to miss updates. I mean, if the item id set changes during a drag, this invalidates the current order. The dragged item might not even exist any more.
+- Home page like [Hubspot Drop](http://github.hubspot.com/drop/docs/welcome)
 
 ## Demo
 [Click here](http://clariussystems.github.io/react-orderable)
