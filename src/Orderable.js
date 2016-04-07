@@ -20,12 +20,9 @@ class Orderable extends React.Component {
   constructor(props) {
     super(props);
 
-    const { itemIds } = props;
     this.state = {
       currentMousePosition: 0,
       draggingId: null,
-      itemIds,
-      originalItemIds: itemIds,
       originalItemPosition: 0,
       startMousePosition: 0,
     };
@@ -36,15 +33,8 @@ class Orderable extends React.Component {
   }
 
   clamp(itemPosition) {
-    const { itemSize } = this.props;
-    const { itemIds } = this.state;
+    const { itemIds, itemSize } = this.props;
     return Math.max(0, Math.min(itemSize * (itemIds.length - 1), itemPosition));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      itemIds: nextProps.itemIds,
-    });
   }
 
   getItemPositionProperty() {
@@ -63,8 +53,7 @@ class Orderable extends React.Component {
   }
 
   handleMouseDown(id, e) {
-    const { itemSize } = this.props;
-    const { itemIds } = this.state;
+    const { itemIds, itemSize } = this.props;
     e.stopPropagation();
     const draggingIndex = itemIds.indexOf(id);
     this.setState({
@@ -79,8 +68,8 @@ class Orderable extends React.Component {
   }
 
   handleMouseMove(e) {
-    const { itemSize, onChange } = this.props;
-    const { draggingId, itemIds, originalItemPosition, startMousePosition } = this.state;
+    const { itemIds, itemSize, onChange } = this.props;
+    const { draggingId, originalItemPosition, startMousePosition } = this.state;
     const currentMousePosition = e[this.getMousePositionProperty()];
     this.setState({
       currentMousePosition,
@@ -146,15 +135,13 @@ class Orderable extends React.Component {
       axis,
       className,
       itemGetter,
+      itemIds,
       itemSize,
     } = this.props;
 
     const {
       currentMousePosition,
       draggingId,
-      itemIds,
-      // Preserve the original order in order to support animation.
-      originalItemIds,
       originalItemPosition,
       startMousePosition,
     } = this.state;
@@ -166,7 +153,7 @@ class Orderable extends React.Component {
           [this.getSizeProperty()]: itemSize * itemIds.length,
         }}
       >
-        {originalItemIds.map(id => {
+        {itemIds.map(id => {
           const index = itemIds.indexOf(id);
           const draggingItem = draggingId === id;
           const itemComponent = itemGetter(id, {
