@@ -6,25 +6,29 @@ import styles from './ListContainer.scss';
 
 class ListContainer extends React.Component {
   static defaultProps = {
+    horizontalItemIds: Immutable.Range(0, 5).map(i => `Horiz ${i}`).toList(),
     itemHeight: 40,
-    itemIds: Immutable.Range(0, 5).map(i => `Item ${i}`).toList(),
+    itemWidth: 120,
+    verticalItemIds: Immutable.Range(0, 5).map(i => `Vert ${i}`).toList(),
   };
   
   constructor(props) {
     super(props);
     
-    const { itemIds } = props;
+    const { horizontalItemIds, verticalItemIds } = props;
     this.state = {
-      itemIds,
+      horizontalItemIds,
+      verticalItemIds,
     };
 
     this.getItem = this.getItem.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleHorizontalChange = this.handleHorizontalChange.bind(this);
+    this.handleVerticalChange = this.handleVerticalChange.bind(this);
   }
-  
+
   getItem(id, options) {
     return (
-      <div className={styles.item}>
+      <div className={classNames(styles.item, styles[`item--${options.axis}`])}>
         <div
           className={styles.handle}
           onMouseDown={options.onMouseDown}
@@ -36,24 +40,51 @@ class ListContainer extends React.Component {
     );
   }
 
-  handleChange(itemIds) {
+  handleHorizontalChange(itemIds) {
     this.setState({
-      itemIds,
+      horizontalItemIds: itemIds,
     });
   }
 
+  handleVerticalChange(itemIds) {
+    this.setState({
+      verticalItemIds: itemIds,
+    });
+  }
+
+  log(...args) {
+    console.log(...args);
+  }
+
   render() {
-    const { itemHeight } = this.props;
-    const { itemIds } = this.state;
+    const { itemHeight, itemWidth } = this.props;
+    const { horizontalItemIds, verticalItemIds } = this.state;
     return (
-      <Reorderable
-        className={styles.reorderable}
-        itemGetter={this.getItem}
-        itemHeight={itemHeight}
-        itemIds={itemIds}
-        logger={(...args) => console.log(...args)}
-        onChange={this.handleChange}
-      />
+      <div className={styles.container}>
+        <Reorderable
+          className={styles.verticalReorderable}
+          itemGetter={(id, options) => this.getItem(id, {
+            axis: 'y',
+            ...options,
+          })}
+          itemIds={verticalItemIds}
+          itemSize={itemHeight}
+          logger={this.log}
+          onChange={this.handleVerticalChange}
+        />
+        <Reorderable
+          axis="x"
+          className={styles.horizontalReorderable}
+          itemGetter={(id, options) => this.getItem(id, {
+            axis: 'x',
+            ...options,
+          })}
+          itemIds={horizontalItemIds}
+          itemSize={itemWidth}
+          logger={this.log}
+          onChange={this.handleHorizontalChange}
+        />
+      </div>
     );
   }
 }

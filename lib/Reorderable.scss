@@ -1,10 +1,19 @@
 @import './variables';
 
 :local(.item) {
-  left: 0;
   position: absolute;
-  right: 0;
-  transition: top 0.1s ease-in-out;
+
+  &:local(.item--x) {
+    bottom: 0;
+    transition: left 0.1s ease-in-out;
+    top: 0;
+  }
+
+  &:local(.item--y) {
+    left: 0;
+    right: 0;
+    transition: top 0.1s ease-in-out;
+  }
 
   &:local(.item--dragging) {
     transition: none;
