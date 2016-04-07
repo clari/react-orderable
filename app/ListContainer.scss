@@ -1,0 +1,36 @@
+@import '../lib/variables';
+
+:local(.handle) {
+  align-items: center;
+  align-self: stretch;
+  cursor: grab;
+  display: flex;
+  margin-right: 10px;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+:local(.item) {
+  align-items: center;
+  background-color: white;
+  border-top: 1px solid lightgray;
+  display: flex;
+  padding: 0 10px;
+
+  // Bottom border is normally covered by the next item, but is revealed if the item is dragged.
+  &::after {
+    border-top: 1px solid lightgray;
+    bottom: -1px;
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+}
+
+:local(.reorderable) {
+  width: 200px;
+}
+

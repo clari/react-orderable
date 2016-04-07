@@ -1,0 +1,13 @@
+@import './variables';
+
+:local(.item) {
+  left: 0;
+  position: absolute;
+  right: 0;
+  transition: top 0.1s ease-in-out;
+
+  &:local(.item--dragging) {
+    transition: none;
+    z-index: $zIndex-draggingItem;
+  }
+}

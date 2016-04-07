@@ -1,26 +1,7 @@
-React Sass Boilerplate
+React Reorderable
 ===
-Features
+TODO
 ---
-JavaScript
-- Hot reloading
-- ES6 with Babel
-- ESLint
-- Source maps
-
-CSS
-- Sass
-- Autoprefixer
-
-Setup
----
-```
-npm install
-npm start
-# Visit http://localhost:8080
-```
-
-References
----
-- [React Transform Boilerplate](https://github.com/gaearon/react-transform-boilerplate)
-- [React HMRE](https://github.com/danmartinez101/babel-preset-react-hmre)
+- Horizontal
+- Replace itemGetter with children
+- Export css file

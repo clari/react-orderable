@@ -1,7 +1,8 @@
 import 'babel-polyfill';
 import './reset.scss';
-import Counter from './Counter';
+import './global.scss';
+import ListContainer from './ListContainer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<Counter/>, document.getElementById('content'));
+ReactDOM.render(<ListContainer/>, document.getElementById('content'));

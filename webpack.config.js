@@ -16,16 +16,18 @@ module.exports = {
       {
         test: /\.js$/,
         include: [
-          path.join(__dirname, 'app')
+          path.join(__dirname, 'app'),
+          path.join(__dirname, 'lib')
         ],
         loaders: ['babel', 'eslint']
       },
       {
         test: /\.scss$/,
         include: [
-          path.join(__dirname, 'app')
+          path.join(__dirname, 'app'),
+          path.join(__dirname, 'lib')
         ],
-        loaders: ['style', 'css', 'postcss', 'sass']
+        loaders: ['style', 'css?localIdentName=react-reorderable-[name]-[local]', 'postcss', 'sass']
       }
     ]
   },
