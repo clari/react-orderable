@@ -1,5 +1,11 @@
 React Orderable
 ===
+Why react-orderable?
+---
+Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case and I did not want to use the DnD API. I don't want an arbitrary placeable ghost image. Instead, I want the item to be constrained to a specific axis (vertical or horizontal).
+
+Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa's Sortable](https://rubaxa.github.io/Sortable), the ordering state of this component is externalized (provided by props). During the drag, the component itself manages the state in order to support animation (if we do the simple thing and require all item order changes to come from props, transitions won't work correctly). Once the drag is done, we propagate the order change to the container so that it can update its state and pass us the new order.
+
 Usage
 ---
 ```javascript
