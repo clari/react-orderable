@@ -27,7 +27,7 @@ class Example extends React.Component {
 
   // Render item callback
   getItem(id, options) {
-    // Attach the mousedown handler to the drag handle.
+    // We will attach the mousedown handler to the drag handle.
     return (
       <div className="example-item">
         <div

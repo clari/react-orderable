@@ -6,6 +6,16 @@ class Orderable extends React.Component {
   static defaultProps = {
     axis: 'y',
   };
+
+  static propTypes = {
+    axis: React.PropTypes.string,
+    className: React.PropTypes.string,
+    itemGetter: React.PropTypes.func.isRequired,
+    itemIds: React.PropTypes.array.isRequired,
+    itemSize: React.PropTypes.number.isRequired,
+    logger: React.PropTypes.func,
+    onChange: React.PropTypes.func.isRequired,
+  };
   
   constructor(props) {
     super(props);
