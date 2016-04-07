@@ -1,4 +1,6 @@
 # React Orderable
+Reorderable list component
+
 ## Features
 - Drag handle
 - Animation
