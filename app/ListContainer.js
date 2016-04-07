@@ -52,9 +52,9 @@ class ListContainer extends React.Component {
     });
   }
 
-  log(...args) {
-    console.log(...args);
-  }
+  // log(...args) {
+  //   console.log(...args);
+  // }
 
   render() {
     const { itemHeight, itemWidth } = this.props;
