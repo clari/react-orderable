@@ -6,7 +6,7 @@ module.exports = {
   entry: './app/entrypoint',
   output: {
     filename: 'bundle.js',
-    path: 'dist',
+    path: 'build',
   },
   module: {
     loaders: [

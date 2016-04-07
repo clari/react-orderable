@@ -14,16 +14,16 @@
     "reorderable",
     "sortable"
   ],
-  "main": "dist/react-orderable.js",
+  "main": "react-orderable.js",
   "files": [
-    "dist/react-orderable.css",
-    "dist/react-orderable.js"
+    "react-orderable.css",
+    "react-orderable.js"
   ],
   "scripts": {
     "build:gh-pages": "NODE_ENV=production webpack --config ./webpack.config.gh-pages.js",
     "build:npm": "NODE_ENV=production webpack --config ./webpack.config.npm.js",
-    "clean": "rm -rf dist",
-    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && git add -f dist && git commit -m 'update dist' && git push -f && git checkout master",
+    "clean": "rm -rf build",
+    "deploy:gh-pages": "git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && git add -f build && git commit -m 'update build' && git push -f && git checkout master",
     "prepublish": "npm run clean && npm run build:npm",
     "start": "webpack-dev-server --config ./webpack.config.dev.js"
   },

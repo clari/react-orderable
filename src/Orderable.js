@@ -25,6 +25,7 @@ class Orderable extends React.Component {
       currentMousePosition: 0,
       draggingId: null,
       itemIds,
+      originalItemIds: itemIds,
       originalItemPosition: 0,
       startMousePosition: 0,
     };
@@ -64,6 +65,7 @@ class Orderable extends React.Component {
   handleMouseDown(id, e) {
     const { itemSize } = this.props;
     const { itemIds } = this.state;
+    e.stopPropagation();
     const draggingIndex = itemIds.indexOf(id);
     this.setState({
       currentMousePosition: e[this.getMousePositionProperty()],
@@ -77,7 +79,7 @@ class Orderable extends React.Component {
   }
 
   handleMouseMove(e) {
-    const { itemSize } = this.props;
+    const { itemSize, onChange } = this.props;
     const { draggingId, itemIds, originalItemPosition, startMousePosition } = this.state;
     const currentMousePosition = e[this.getMousePositionProperty()];
     this.setState({
@@ -114,21 +116,14 @@ class Orderable extends React.Component {
 
     if (newItemIds) {
       this.log('new item ids', newItemIds);
-      this.setState({
-        itemIds: newItemIds,
-      });
+      onChange(newItemIds);
     }
   }
 
   handleMouseUp() {
-    const { onChange } = this.props;
-    const { itemIds } = this.state;
-
     this.setState({
       draggingId: null,
     });
-
-    onChange(itemIds);
 
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
@@ -146,8 +141,6 @@ class Orderable extends React.Component {
       axis,
       className,
       itemGetter,
-      // While dragging, we need to preserve the original order in order to support animation.
-      itemIds: originalItemIds,
       itemSize,
     } = this.props;
 
@@ -155,6 +148,8 @@ class Orderable extends React.Component {
       currentMousePosition,
       draggingId,
       itemIds,
+      // Preserve the original order in order to support animation.
+      originalItemIds,
       originalItemPosition,
       startMousePosition,
     } = this.state;

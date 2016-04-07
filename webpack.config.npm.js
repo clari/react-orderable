@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/library',
   output: {
     filename: 'react-orderable.js',
-    path: 'dist',
+    path: __dirname,
     libraryTarget: 'commonjs2',
   },
   externals: {
