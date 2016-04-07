@@ -73,4 +73,4 @@ class Example extends React.Component {
 
 ## TODO
 - Export css file
-- npm build should only compile scss
+- npm build should not require babel or scss
