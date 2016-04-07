@@ -27,7 +27,7 @@ class Orderable extends React.Component {
   clamp(itemPosition) {
     const { itemSize } = this.props;
     const { itemIds } = this.state;
-    return Math.max(0, Math.min(itemSize * (itemIds.size - 1), itemPosition));
+    return Math.max(0, Math.min(itemSize * (itemIds.length - 1), itemPosition));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -85,25 +85,25 @@ class Orderable extends React.Component {
       const prevItemPosition = itemSize * prevIndex;
       if ((itemPosition - prevItemPosition) / itemSize < 0.5) {
         this.log('swap prev', draggingIndex);
-        newItemIds = itemIds
-          .set(prevIndex, draggingId)
-          .set(draggingIndex, itemIds.get(prevIndex));
+        newItemIds = itemIds.slice();
+        newItemIds[prevIndex] = draggingId;
+        newItemIds[draggingIndex] = itemIds[prevIndex];
       }
     }
 
-    if (draggingIndex !== itemIds.size) {
+    if (draggingIndex !== itemIds.length) {
       const nextIndex = draggingIndex + 1;
       const nextItemPosition = itemSize * nextIndex;
       if ((nextItemPosition - itemPosition) / itemSize < 0.5) {
         this.log('swap next', draggingIndex);
-        newItemIds = itemIds
-          .set(nextIndex, draggingId)
-          .set(draggingIndex, itemIds.get(nextIndex));
+        newItemIds = itemIds.slice();
+        newItemIds[nextIndex] = draggingId;
+        newItemIds[draggingIndex] = itemIds[nextIndex];
       }
     }
 
     if (newItemIds) {
-      this.log('new item ids', newItemIds.toJS());
+      this.log('new item ids', newItemIds);
       this.setState({
         itemIds: newItemIds,
       });
@@ -136,6 +136,7 @@ class Orderable extends React.Component {
       axis,
       className,
       itemGetter,
+      // While dragging, we need to preserve the original order in order to support animation.
       itemIds: originalItemIds,
       itemSize,
     } = this.props;
@@ -148,12 +149,11 @@ class Orderable extends React.Component {
       startMousePosition,
     } = this.state;
 
-    // While dragging, we need to preserve the original order in order to support animation.
     return (
       <div
         className={className}
         style={{
-          [this.getSizeProperty()]: itemSize * itemIds.size,
+          [this.getSizeProperty()]: itemSize * itemIds.length,
         }}
       >
         {originalItemIds.map(id => {

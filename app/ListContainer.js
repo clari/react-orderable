@@ -42,13 +42,13 @@ class ListContainer extends React.Component {
 
   handleHorizontalChange(itemIds) {
     this.setState({
-      horizontalItemIds: itemIds,
+      horizontalItemIds: Immutable.List(itemIds),
     });
   }
 
   handleVerticalChange(itemIds) {
     this.setState({
-      verticalItemIds: itemIds,
+      verticalItemIds: Immutable.List(itemIds),
     });
   }
 
@@ -67,7 +67,7 @@ class ListContainer extends React.Component {
             axis: 'y',
             ...options,
           })}
-          itemIds={verticalItemIds}
+          itemIds={verticalItemIds.toArray()}
           itemSize={itemHeight}
           logger={this.log}
           onChange={this.handleVerticalChange}
@@ -79,7 +79,7 @@ class ListContainer extends React.Component {
             axis: 'x',
             ...options,
           })}
-          itemIds={horizontalItemIds}
+          itemIds={horizontalItemIds.toArray()}
           itemSize={itemWidth}
           logger={this.log}
           onChange={this.handleHorizontalChange}

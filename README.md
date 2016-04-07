@@ -49,9 +49,8 @@ class Example extends React.Component {
     const { itemIds } = this.state;
 
     // Default axis is y (vertical ordering).
-    // itemIds supports any iterable (array, Immutable.List).
     // For y axis, itemSize is itemHeight. To provide width, set width via the className.
-    // For x axis, itemSize is itemWidth. To provide height, set width via the className.
+    // For x axis, itemSize is itemWidth. To provide height, set height via the className.
 
     return (
       <Orderable
@@ -70,4 +69,4 @@ class Example extends React.Component {
 ## Why react-orderable?
 Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case. Also, I did not want to use the DnD API. While DnD provides a standard UI for drag and drop (ghost image), I wanted more control over the appearance (movement along an axis, no ghosting).
 
-Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa's Sortable](https://rubaxa.github.io/Sortable), the state of the component is passed in as props, rather than maintained internally. This allows the order of items to be stored in a state container such as Redux.
+Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa Sortable](https://rubaxa.github.io/Sortable), the state of the component is passed in as props, rather than maintained internally. This allows the order of items to be stored in a state container such as Redux.

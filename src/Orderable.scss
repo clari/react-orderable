@@ -3,11 +3,6 @@
 :local(.item) {
   position: absolute;
 
-  &:local(.item--dragging) {
-    transition: none;
-    z-index: $zIndex-draggingItem;
-  }
-
   &:local(.item--x) {
     bottom: 0;
     transition: left 0.1s ease-in-out;
@@ -18,5 +13,10 @@
     left: 0;
     right: 0;
     transition: top 0.1s ease-in-out;
+  }
+
+  &:local(.item--dragging) {
+    transition: none; // Override transition
+    z-index: $zIndex-draggingItem;
   }
 }
