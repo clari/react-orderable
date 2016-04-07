@@ -129,6 +129,11 @@ class Orderable extends React.Component {
     window.removeEventListener('mouseup', this.handleMouseUp);
   }
 
+  isDragging() {
+    const { draggingId } = this.state;
+    return draggingId !== null;
+  }
+
   log(...args) {
     const { logger } = this.props;
     if (logger) {
@@ -163,7 +168,7 @@ class Orderable extends React.Component {
       >
         {originalItemIds.map(id => {
           const index = itemIds.indexOf(id);
-          const dragging = draggingId === id;
+          const draggingItem = draggingId === id;
           const itemComponent = itemGetter(id, {
             onMouseDown: e => this.handleMouseDown(id, e),
           });
@@ -172,12 +177,13 @@ class Orderable extends React.Component {
             className: classNames(
               styles.item,
               styles[`item--${axis}`],
-              dragging && styles['item--dragging'],
+              this.isDragging() && styles['item--dragging'],
+              draggingItem && styles['item--draggingItem'],
               itemComponent.props.className
             ),
             key: id,
             style: {
-              [this.getItemPositionProperty()]: dragging ?
+              [this.getItemPositionProperty()]: draggingItem ?
                 this.clamp(originalItemPosition + currentMousePosition - startMousePosition) :
                 itemSize * index,
               [this.getSizeProperty()]: itemSize,

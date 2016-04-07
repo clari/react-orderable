@@ -15,7 +15,11 @@
     transition: top 0.1s ease-in-out;
   }
 
-  &:local(.item--dragging) {
+  &:not(:local(.item--dragging)) {
+    transition: none; // Override transition
+  }
+
+  &:local(.item--draggingItem) {
     transition: none; // Override transition
     z-index: $zIndex-draggingItem;
   }
