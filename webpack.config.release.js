@@ -24,6 +24,8 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new ExtractTextPlugin('react-orderable.css'),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   postcss: common.postcss
 };
