@@ -1,21 +1,17 @@
 # React Orderable
-[Reorderable list component](http://clariussystems.github.io/react-orderable)
+## Demo
+[Click here](http://clariussystems.github.io/react-orderable)
 
 ## Features
 - Drag handle
 - Animation
-- Vertical or horizontal axis
-
-## Why react-orderable?
-Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case and I did not want to use the DnD API.
-
-Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa's Sortable](https://rubaxa.github.io/Sortable), you pass the order of the items into the component as props, and when the order changes, the component fires a callback with the changed ordering. This allows the order of items to be stored in a state container such as Redux.
+- Horizontal or vertical axis
 
 ## Usage
 ```javascript
 import 'react-orderable/react-orderable.css';
+import Orderable from 'react-orderable';
 import React from 'react';
-import Reorderable from 'react-orderable';
 
 class Example extends React.Component {
   constructor(props) {
@@ -52,15 +48,15 @@ class Example extends React.Component {
   render() {
     const { itemIds } = this.state;
 
-    // Default axis is y (vertical reorderable).
+    // Default axis is y (vertical ordering).
     // itemIds supports any iterable (array, Immutable.List).
     // For y axis, itemSize is itemHeight. To provide width, set width via the className.
     // For x axis, itemSize is itemWidth. To provide height, set width via the className.
 
     return (
-      <Reorderable
+      <Orderable
         axis="y"
-        className="example-reorderable"
+        className="example-orderable"
         itemGetter={this.getItem}
         itemIds={itemIds}
         itemSize={40}
@@ -70,6 +66,11 @@ class Example extends React.Component {
   }
 }
 ```
+
+## Why react-orderable?
+Compared to [React DnD](https://github.com/gaearon/react-dnd), I wanted this component to be simple to use for the common case and I did not want to use the DnD API.
+
+Compared to [jQuery Sortable](https://jqueryui.com/sortable) and [Rubaxa's Sortable](https://rubaxa.github.io/Sortable), you pass the order of the items into the component as props, and when the order changes, the component fires a callback with the changed ordering. This allows the order of items to be stored in a state container such as Redux.
 
 ## TODO
 - Export css file

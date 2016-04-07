@@ -1,6 +1,6 @@
 @import '../lib/variables';
 
-:local(.horizontalReorderable) {
+:local(.horizontalOrderable) {
   height: 40px;
   margin-top: 20px;
 }
@@ -51,7 +51,7 @@
   }
 }
 
-:local(.verticalReorderable) {
+:local(.verticalOrderable) {
   width: 200px;
 }
 

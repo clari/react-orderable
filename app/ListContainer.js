@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Immutable from 'immutable';
+import Orderable from '../lib/Orderable';
 import React from 'react';
-import Reorderable from '../lib/Reorderable';
 import styles from './ListContainer.scss';
 
 class ListContainer extends React.Component {
@@ -61,8 +61,8 @@ class ListContainer extends React.Component {
     const { horizontalItemIds, verticalItemIds } = this.state;
     return (
       <div className={styles.container}>
-        <Reorderable
-          className={styles.verticalReorderable}
+        <Orderable
+          className={styles.verticalOrderable}
           itemGetter={(id, options) => this.getItem(id, {
             axis: 'y',
             ...options,
@@ -72,9 +72,9 @@ class ListContainer extends React.Component {
           logger={this.log}
           onChange={this.handleVerticalChange}
         />
-        <Reorderable
+        <Orderable
           axis="x"
-          className={styles.horizontalReorderable}
+          className={styles.horizontalOrderable}
           itemGetter={(id, options) => this.getItem(id, {
             axis: 'x',
             ...options,
