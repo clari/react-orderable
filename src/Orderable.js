@@ -59,6 +59,7 @@ class Orderable extends React.Component {
     this.setState({
       currentMousePosition: e[this.getMousePositionProperty()],
       draggingId: id,
+      originalItemIds: itemIds,
       originalItemPosition: itemSize * draggingIndex,
       startMousePosition: e[this.getMousePositionProperty()],
     });
@@ -142,9 +143,16 @@ class Orderable extends React.Component {
     const {
       currentMousePosition,
       draggingId,
+      originalItemIds,
       originalItemPosition,
       startMousePosition,
     } = this.state;
+
+    const sortedItemIds = this.isDragging() ?
+      itemIds.slice().sort((id1, id2) => {
+        return originalItemIds.indexOf(id1) - originalItemIds.indexOf(id2);
+      }) :
+      itemIds;
 
     return (
       <div
@@ -153,7 +161,7 @@ class Orderable extends React.Component {
           [this.getSizeProperty()]: itemSize * itemIds.length,
         }}
       >
-        {itemIds.map(id => {
+        {sortedItemIds.map(id => {
           const index = itemIds.indexOf(id);
           const draggingItem = draggingId === id;
           const itemComponent = itemGetter(id, {
