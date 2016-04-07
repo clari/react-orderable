@@ -6,8 +6,7 @@ module.exports = {
     test: /\.js$/,
     include: [
       path.join(__dirname, 'app'),
-      path.join(__dirname, 'lib'),
-      path.join(__dirname, 'index.js')
+      path.join(__dirname, 'lib')
     ],
     loaders: ['babel', 'eslint']
   },

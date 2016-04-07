@@ -13,8 +13,8 @@
     "reorderable",
     "sortable"
   ],
+  "main": "dist/react-orderable.js",
   "files": [
-    "index.js",
     "dist/react-orderable.css",
     "dist/react-orderable.js"
   ],

@@ -3,12 +3,15 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './index',
+  entry: './lib/library',
   output: {
     filename: 'react-orderable.js',
     library: 'ReactOrderable',
     libraryTarget: 'umd',
     path: 'dist',
+  },
+  externals: {
+    react: 'React',
   },
   module: {
     loaders: [
