@@ -30,6 +30,7 @@ class Orderable extends React.Component {
       startMousePosition: 0,
     };
 
+    this.handleClick = this.handleClick.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -62,6 +63,10 @@ class Orderable extends React.Component {
   getSizeProperty() {
     const { axis } = this.props;
     return axis === 'x' ? 'width' : 'height';
+  }
+
+  handleClick(e) {
+    e.stopPropagation();
   }
 
   handleMouseDown(id, e) {
@@ -184,6 +189,7 @@ class Orderable extends React.Component {
           const index = itemIds.indexOf(id);
           const draggingItem = draggingId === id;
           const itemComponent = itemGetter(id, {
+            onClick: this.handleClick,
             onMouseDown: e => this.handleMouseDown(id, e),
           });
 
