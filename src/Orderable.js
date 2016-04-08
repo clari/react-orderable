@@ -65,7 +65,7 @@ class Orderable extends React.Component {
   }
 
   handleMouseDown(id, e) {
-    const { itemSize } = this.props;
+    const { itemSize, onDragStart } = this.props;
     const { itemIds } = this.state;
     e.stopPropagation();
     const draggingIndex = itemIds.indexOf(id);
@@ -81,6 +81,8 @@ class Orderable extends React.Component {
 
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
+
+    onDragStart();
   }
 
   handleMouseMove(e) {
