@@ -18,9 +18,8 @@ module.exports = {
       {
         test: common.cssLoader.test,
         include: common.cssLoader.include,
-        loader: ExtractTextPlugin.extract('style', 'css?localIdentName=react-orderable-[name]-[local]!postcss!sass')
+        loader: ExtractTextPlugin.extract('style', 'css?localIdentName=react-orderable-[name]-[local]!sass')
       },
-      common.fileLoader,
     ]
   },
   plugins: [
