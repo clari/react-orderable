@@ -2,6 +2,7 @@
 ## Checklist before 0.2.0 release
 - Use in Clari view panel
 - Commit dist
+- Touch support
 
 ## Demo
 [Try it](http://clariussystems.github.io/react-orderable)
@@ -56,19 +57,19 @@ import React from 'react';
 | itemSize | Y | | Item height for vertical lists, item width for horizontal lists |
 | onChange | Y | | Callback that receives an ordered array of item ids when a drag completes |
 
-Items inside an Orderable must have an id property (similar to key) which is used to keep track of item order. We need to pass id here because [key is not accessible by components](https://gist.github.com/jimfb/fb2a04fe3fa4637d7d62).
+Items inside an Orderable must have an id property (similar to key) which is used to keep track of item order.
 
 ### Item interface
 
-This is the interface required of the item components.
+These are the props the item component must support.
 
-| Property | Description |
-| --- | --- |
-| className | Class name for the item's div |
-| dragging | Whether this item is being dragged |
-| ghost | Whether this is a ghost item |
-| onHandleMouseDown | Mouse down handler for the item's handle (this can be the item itself) |
-| style | Style for the item's div |
+| Property | Required | Description |
+| --- | --- | --- |
+| className | Y | Class name for the item's div |
+| dragging | N | Whether this item is being dragged |
+| ghost | N | Whether this is a ghost item |
+| onHandleMouseDown | Required for mouse dragging | Mouse down handler for the item's handle (this can be the item itself) |
+| style | Y | Style for the item's div |
 
 ## Candidates for improvements
 - Variable item size

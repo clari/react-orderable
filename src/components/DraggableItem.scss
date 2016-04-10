@@ -1,0 +1,27 @@
+ @import '../variables';
+
+ :local(.item) {
+   position: absolute;
+
+   &:local(.item--ghost) {
+     display: none;
+   }
+
+   &:not(:local(.item--horizontal)) {
+     left: 0;
+     right: 0;
+
+     &:local(.item--animated) {
+       transition: top 0.1s ease-in-out;
+     }
+   }
+
+   &:local(.item--horizontal) {
+     bottom: 0;
+     top: 0;
+
+     &:local(.item--animated) {
+       transition: left 0.1s ease-in-out;
+     }
+   }
+ }
