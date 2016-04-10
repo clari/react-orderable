@@ -2,6 +2,7 @@
 ## Checklist before 0.2.0 release
 - Use in Clari view panel
 - Commit dist
+- Touch end bug
 
 ## Demo
 [Try it](http://clariussystems.github.io/react-orderable)
