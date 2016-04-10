@@ -54,6 +54,8 @@ import Orderable from 'react-orderable';
 | itemSize | Y | | Item height for vertical lists, item width for horizontal lists |
 | onChange | Y | | Callback that receives an ordered list of item ids when a drag completes |
 
+Items inside an Orderable must have an id property (similar to key) which is used to keep track of item order. We need to pass id here because [key is not accessible by components](https://gist.github.com/jimfb/fb2a04fe3fa4637d7d62).
+
 ### Item interface
 
 This is the interface required of the item components.
@@ -63,7 +65,6 @@ This is the interface required of the item components.
 | className | Class name for the item's div |
 | dragging | Whether this item is being dragged |
 | ghost | Whether this is a ghost item |
-| id | Item id used to keep track of order |
 | onHandleMouseDown | Mouse down handler for the item's handle (this can be the item itself) |
 | style | Style for the item's div |
 

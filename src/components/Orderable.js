@@ -54,8 +54,12 @@ class Orderable extends React.Component {
     this.removeListeners();
   }
 
+  getItemId(item) {
+    return item.props.id;
+  }
+
   getItemIds(children) {
-    return Immutable.List(React.Children.toArray(children)).map(item => item.props.id);
+    return Immutable.List(React.Children.toArray(children)).map(item => this.getItemId(item));
   }
 
   getItemIndex(id) {
@@ -63,14 +67,14 @@ class Orderable extends React.Component {
     return itemIds.indexOf(id);
   }
 
-  getItemSizeProperty() {
-    const { horizontal } = this.props;
-    return horizontal ? 'width' : 'height';
-  }
-
   getItemPositionProperty() {
     const { horizontal } = this.props;
     return horizontal ? 'left' : 'top';
+  }
+
+  getItemSizeProperty() {
+    const { horizontal } = this.props;
+    return horizontal ? 'width' : 'height';
   }
 
   getMousePosition(e) {
@@ -190,7 +194,7 @@ class Orderable extends React.Component {
 
     let draggedItem;
     if (this.isDragging(this.state)) {
-      draggedItem = childArray.find(item => item.props.id === draggedId);
+      draggedItem = childArray.find(item => this.getItemId(item) === draggedId);
     }
 
     return (
@@ -201,9 +205,9 @@ class Orderable extends React.Component {
         }}
       >
         {childArray
-          .filter(item => ghost || item.props.id !== draggedId)
+          .filter(item => ghost || this.getItemId(item) !== draggedId)
           .map(item => {
-            const id = item.props.id;
+            const id = this.getItemId(item);
             const index = this.getItemIndex(id);
             return React.cloneElement(item, {
               className: classNames(
