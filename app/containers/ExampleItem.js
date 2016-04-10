@@ -7,6 +7,7 @@ class ExampleItem extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
     dragging: React.PropTypes.bool,
+    ghost: React.PropTypes.bool,
     item: ImmutablePropTypes.map.isRequired,
     onHandleMouseDown: React.PropTypes.func,
     style: React.PropTypes.object,
@@ -16,6 +17,7 @@ class ExampleItem extends React.Component {
     const {
       className,
       dragging,
+      ghost,
       item,
       onHandleMouseDown,
       style,
@@ -26,6 +28,7 @@ class ExampleItem extends React.Component {
         className={classNames(
           styles.item,
           dragging && styles['item--dragging'],
+          ghost && styles['item--ghost'],
           className
         )}
         style={style}

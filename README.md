@@ -1,5 +1,8 @@
 React Orderable
 ===
-TODO
+Features
 ---
+- Horizontal or vertical layout
+- Drag handle
 - Animation
+- Ghost item

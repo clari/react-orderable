@@ -21,14 +21,17 @@
 
 :local(.item) {
   align-items: center;
-  background-color: white;
-  border: 3px solid lightgray;
+  background-color: #eee;
   display: flex;
   font-size: 14px;
   padding: 10px;
 
   &:local(.item--dragging) {
-    border-color: orange;
+    background-color: #ddd;
     z-index: $zIndex-draggingItem;
+  }
+
+  &:local(.item--ghost) {
+    opacity: 0.5;
   }
 }

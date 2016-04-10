@@ -7,9 +7,12 @@ import styles from './Orderable.scss';
 
 class Orderable extends React.Component {
   static propTypes = {
+    animated: React.PropTypes.bool,
     children: React.PropTypes.node,
     className: React.PropTypes.string,
-    itemHeight: React.PropTypes.number.isRequired,
+    ghost: React.PropTypes.bool,
+    horizontal: React.PropTypes.bool,
+    itemSize: React.PropTypes.number.isRequired,
     onChange: React.PropTypes.func.isRequired,
   };
 
@@ -18,11 +21,11 @@ class Orderable extends React.Component {
 
     const { children } = props;
     this.state = {
-      currentY: null,
+      currentMousePosition: null,
       draggedId: null,
       itemIds: this.getItemIds(children),
-      originalY: null,
-      startY: null,
+      originalItemPosition: null,
+      startMousePosition: null,
     };
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -55,43 +58,65 @@ class Orderable extends React.Component {
     return Immutable.List(React.Children.toArray(children)).map(item => item.props.id);
   }
 
-  handleMouseDown(id, e) {
-    const { itemHeight } = this.props;
+  getItemIndex(id) {
     const { itemIds } = this.state;
+    return itemIds.indexOf(id);
+  }
+
+  getItemSizeProperty() {
+    const { horizontal } = this.props;
+    return horizontal ? 'width' : 'height';
+  }
+
+  getItemPositionProperty() {
+    const { horizontal } = this.props;
+    return horizontal ? 'left' : 'top';
+  }
+
+  getMousePosition(e) {
+    const { horizontal } = this.props;
+    return horizontal ? e.clientX : e.clientY;
+  }
+
+  handleMouseDown(id, e) {
+    const { itemSize } = this.props;
 
     e.preventDefault(); // Prevent selection
 
-    const draggedIndex = itemIds.indexOf(id);
     this.setState({
-      currentY: e.clientY,
+      currentMousePosition: this.getMousePosition(e),
       draggedId: id,
       // The dragged item's position is relative to its original position, not to the position 
       // computed by its current index
-      originalY: itemHeight * draggedIndex,
-      startY: e.clientY,
+      originalItemPosition: itemSize * this.getItemIndex(id),
+      startMousePosition: this.getMousePosition(e),
     });
 
     this.addListeners();
   }
 
   handleMouseMove(e) {
-    const { itemHeight } = this.props;
-    const { draggedId, itemIds, originalY, startY } = this.state;
+    const { itemSize } = this.props;
+    const { draggedId, itemIds, originalItemPosition, startMousePosition } = this.state;
 
     // Compute the dragged item position, constrained by the list bounds
-    const draggedIndex = itemIds.indexOf(draggedId);
-    const minY = -(originalY - startY);
-    const maxY = minY + itemHeight * (itemIds.size - 1);
-    const currentY = clamp(e.clientY, minY, maxY);
-    if (currentY !== this.state.currentY) {
+    const draggedIndex = this.getItemIndex(draggedId);
+    const minMousePosition = -(originalItemPosition - startMousePosition);
+    const maxMousePosition = minMousePosition + itemSize * (itemIds.size - 1);
+    const currentMousePosition = clamp(
+      this.getMousePosition(e),
+      minMousePosition,
+      maxMousePosition
+    );
+    if (currentMousePosition !== this.state.currentMousePosition) {
       // If the dragged item overlaps the previous item, swap the dragged item with the previous 
       // item
       let newIds;
-      const top = originalY + currentY - startY;
+      const itemPosition = originalItemPosition + currentMousePosition - startMousePosition;
       if (draggedIndex !== 0) {
         const prevIndex = draggedIndex - 1;
-        const prevTop = itemHeight * prevIndex;
-        if ((top - prevTop) / itemHeight < 0.5) {
+        const prevItemPosition = itemSize * prevIndex;
+        if ((itemPosition - prevItemPosition) / itemSize < 0.5) {
           newIds = itemIds
             .set(draggedIndex, itemIds.get(prevIndex))
             .set(prevIndex, itemIds.get(draggedIndex));
@@ -101,8 +126,8 @@ class Orderable extends React.Component {
       // If the dragged item overlaps the next item, swap the dragged item with the next item
       if (draggedIndex !== itemIds.size - 1) {
         const nextIndex = draggedIndex + 1;
-        const nextTop = itemHeight * nextIndex;
-        if ((nextTop - top) / itemHeight < 0.5) {
+        const nextItemPosition = itemSize * nextIndex;
+        if ((nextItemPosition - itemPosition) / itemSize < 0.5) {
           newIds = itemIds
             .set(draggedIndex, itemIds.get(nextIndex))
             .set(nextIndex, itemIds.get(draggedIndex));
@@ -110,7 +135,7 @@ class Orderable extends React.Component {
       }
 
       this.setState({
-        currentY,
+        currentMousePosition,
         ...(newIds ? { itemIds: newIds } : null),
       });
     }
@@ -146,42 +171,72 @@ class Orderable extends React.Component {
 
   render() {
     const {
+      animated,
       children,
       className,
-      itemHeight,
+      ghost,
+      horizontal,
+      itemSize,
     } = this.props;
 
     const {
-      currentY,
-      itemIds,
-      originalY,
-      startY,
+      currentMousePosition,
+      draggedId,
+      originalItemPosition,
+      startMousePosition,
     } = this.state;
+
+    const childArray = React.Children.toArray(children);
+
+    let draggedItem;
+    if (this.isDragging(this.state)) {
+      draggedItem = childArray.find(item => item.props.id === draggedId);
+    }
 
     return (
       <div
         className={className}
         style={{
-          height: itemHeight * React.Children.count(children),
+          [this.getItemSizeProperty()]: itemSize * React.Children.count(children),
         }}
       >
-        {React.Children.map(children, item => {
-          const id = item.props.id;
-          const index = itemIds.indexOf(id);
-          return React.cloneElement(item, {
-            className: classNames(
-              styles.item,
-              item.props.className
-            ),
-            dragging: this.isDraggedItem(id),
-            onHandleMouseDown: e => this.handleMouseDown(id, e),
-            style: {
-              height: itemHeight,
-              // If this item is the dragged item, position it based on the mouse position
-              top: this.isDraggedItem(id) ? originalY + currentY - startY : itemHeight * index,
-              ...item.props.style,
-            },
-          });
+        {childArray
+          .filter(item => ghost || item.props.id !== draggedId)
+          .map(item => {
+            const id = item.props.id;
+            const index = this.getItemIndex(id);
+            return React.cloneElement(item, {
+              className: classNames(
+                styles.item,
+                horizontal && styles['item--horizontal'],
+                // Disable animation outside of drag
+                this.isDragging(this.state) && animated && styles['item--animated'],
+                item.props.className
+              ),
+              ghost: this.isDraggedItem(id),
+              onHandleMouseDown: e => this.handleMouseDown(id, e),
+              style: {
+                [this.getItemSizeProperty()]: itemSize,
+                [this.getItemPositionProperty()]: itemSize * index,
+                ...item.props.style,
+              },
+            });
+          })}
+        {this.isDragging(this.state) && React.cloneElement(draggedItem, {
+          className: classNames(
+            styles.item,
+            horizontal && styles['item--horizontal'],
+            draggedItem.props.className
+          ),
+          dragging: true,
+          style: {
+            [this.getItemSizeProperty()]: itemSize,
+            // Position the dragged item based on the mouse position
+            [this.getItemPositionProperty()]: originalItemPosition +
+              currentMousePosition -
+              startMousePosition,
+            ...draggedItem.props.style,
+          },
         })}
       </div>
     );

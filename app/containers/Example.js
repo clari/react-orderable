@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ExampleItem from './ExampleItem';
@@ -8,8 +9,9 @@ import styles from './Example.scss';
 class Example extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
-    items: ImmutablePropTypes.list.isRequired,
     itemHeight: React.PropTypes.number.isRequired,
+    items: ImmutablePropTypes.list.isRequired,
+    itemWidth: React.PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -20,6 +22,7 @@ class Example extends React.Component {
         name: `Item ${i}`,
       });
     }).toList(),
+    itemWidth: 120,
   };
 
   constructor(props) {
@@ -28,9 +31,11 @@ class Example extends React.Component {
     const { items } = props;
     this.state = {
       items,
+      horizontal: false,
     };
     
     this.handleChange = this.handleChange.bind(this);
+    this.handleHorizontalChange = this.handleHorizontalChange.bind(this);
   }
 
   handleChange(itemIds) {
@@ -45,31 +50,51 @@ class Example extends React.Component {
     });
   }
 
-  render() {
-    const {
-      className,
-      itemHeight,
-    } = this.props;
+  handleHorizontalChange(e) {
+    this.setState({
+      horizontal: e.currentTarget.checked,
+    });
+  }
 
-    const { items } = this.state;
+  render() {
+    const { className, itemHeight, itemWidth } = this.props;
+    const { horizontal, items } = this.state;
 
     return (
-      <Orderable 
-        className={className}
-        draggedClassName={styles['item--dragged']}
-        itemHeight={itemHeight}
-        onChange={this.handleChange}
-      >
-        {items.map((item, i) => {
-          return (
-            <ExampleItem
-              id={item.get('id')}
-              item={item}
-              key={i}
+      <div>
+        <div>
+          <label>
+            <input
+              onChange={this.handleHorizontalChange}
+              type="checkbox"
+              value={horizontal}
             />
-          );
-        })}
-      </Orderable>
+            Horizontal
+          </label>
+        </div>
+        <Orderable 
+          animated
+          className={classNames(
+            styles.orderable,
+            horizontal && styles['orderable--horizontal'],
+            className
+          )}
+          horizontal={horizontal}
+          ghost
+          itemSize={horizontal ? itemWidth : itemHeight}
+          onChange={this.handleChange}
+        >
+          {items.map(item => {
+            return (
+              <ExampleItem
+                id={item.get('id')}
+                item={item}
+                key={item.get('id')}
+              />
+            );
+          })}
+        </Orderable>
+      </div>
     );
   }
 }

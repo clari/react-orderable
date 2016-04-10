@@ -1,1 +1,11 @@
 @import '../variables';
+
+:local(.orderable) {
+  &:not(:local(.orderable--horizontal)) {
+    width: 300px;
+  }
+
+  &:local(.orderable--horizontal) {
+    height: 40px;
+  }
+}
