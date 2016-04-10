@@ -5,6 +5,10 @@ TODO
 - gh-pages build
 - npm build
 
+Demo
+---
+[Try it](http://clariussystems.github.io/react-orderable)
+
 Features
 ---
 - Horizontal or vertical layout
