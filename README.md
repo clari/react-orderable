@@ -42,6 +42,7 @@
 | Property | Required | Default | Description |
 | --- | --- | --- | --- |
 | animated | N | false | Whether to animate item position during a drag |
+| children | N | | The items to order |
 | className | N | | Class name for the Orderable component's div |
 | ghost | N | false | Whether to show a ghost item when an item is being dragged |
 | horizontal | N | false | Whether this is a horizontal or vertical list |
