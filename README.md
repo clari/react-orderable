@@ -39,10 +39,8 @@
 
 ### Orderable interface
 
-The following props are supported by Orderable.
-
 | Property | Required | Default | Description |
-| --- | --- |
+| --- | --- | --- | --- |
 | animated | N | false | Whether to animate item position during a drag |
 | className | N | | Class name for the Orderable component's div |
 | ghost | N | false | Whether to show a ghost item when an item is being dragged |
