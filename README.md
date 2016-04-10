@@ -40,7 +40,7 @@ Usage
 </Orderable>
 ```
 
-[Full example](blob/master/app/containers/Welcome.js)
+[Full example](https://github.com/clariussystems/react-orderable/blob/master/app/welcome/containers/Welcome.js)
 
 Who's using React Orderable?
 ---
