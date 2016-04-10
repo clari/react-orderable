@@ -39,6 +39,8 @@
 
 ### Orderable interface
 
+The following props are supported by Orderable.
+
 | Property | Required | Default | Description |
 | --- | --- |
 | animated | N | false | Whether to animate item position during a drag |
