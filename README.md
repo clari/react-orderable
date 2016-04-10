@@ -13,6 +13,13 @@
 - Ghost item
 - Item movement is constrained to a single axis (x or y)
 
+### Who's using React Orderable?
+- [Clari](http://www.clari.com)
+
+### Comparison to other libraries
+- Unlike [jQuery Sortable](https://jqueryui.com/sortable) and [RubaXa Sortable](https://github.com/RubaXa/Sortable), React Orderable manipulates the DOM purely through React.
+- Compared to [React DnD](https://github.com/gaearon/react-dnd), (a) React Orderable is usable out of the box for reordering and (b) React Orderable does not use the DnD API. Instead, we use mouse events. This means we don't have to override the browser's default ghost image or configure drop targets.
+
 ## Usage
 ```javascript
 <Orderable
@@ -60,13 +67,6 @@ This is the interface required of the item components.
 | ghost | Whether this is a ghost item |
 | onHandleMouseDown | Mouse down handler for the item's handle (this can be the item itself) |
 | style | Style for the item's div |
-
-## Who's using React Orderable?
-- [Clari](http://www.clari.com)
-
-## Comparison to other libraries
-- Unlike [jQuery Sortable](https://jqueryui.com/sortable) and [RubaXa Sortable](https://github.com/RubaXa/Sortable), React Orderable manipulates the DOM purely through React.
-- Compared to [React DnD](https://github.com/gaearon/react-dnd), (a) React Orderable is usable out of the box for reordering and (b) React Orderable does not use the DnD API. Instead, we use mouse events. This means we don't have to override the browser's default ghost image or configure drop targets.
 
 ## Candidates for improvements
 - Variable item size
