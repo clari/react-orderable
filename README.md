@@ -2,7 +2,6 @@
 ## Checklist before 0.2.0 release
 - Use in Clari view panel
 - Commit dist
-- Touch support
 
 ## Demo
 [Try it](http://clariussystems.github.io/react-orderable)
@@ -13,6 +12,7 @@
 - Animation
 - Ghost item
 - Item movement is constrained to a single axis (x or y)
+- Touch support
 
 ## Usage
 ```javascript
@@ -68,7 +68,7 @@ These are the props the item component must support.
 | className | Y | Class name for the item's div |
 | dragging | N | Whether this item is being dragged |
 | ghost | N | Whether this is a ghost item |
-| onHandleMouseDown | Required for mouse dragging | Mouse down handler for the item's handle (this can be the item itself) |
+| onDragStart | Y | Mouse down or touch start handler for the item's handle (this can be the item itself) |
 | style | Y | Style for the item's div |
 
 ## Candidates for improvements
@@ -77,3 +77,4 @@ These are the props the item component must support.
 - If I have variable item size, do I support changing item size during a drag?
 - Margin between items
 - Dragging items between groups
+- Touch cancel

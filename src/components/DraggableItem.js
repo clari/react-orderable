@@ -22,14 +22,23 @@ class DraggableItem extends React.Component {
   constructor(props) {
     super(props);
     
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.state = {
+      touchIdentifier: null,
+    };
+
+    this.handleDragEnd = this.handleDragEnd.bind(this);
+    this.handleDragMove = this.handleDragMove.bind(this);
+    this.handleDragStart = this.handleDragStart.bind(this);
   }
 
   addListeners() {
-    document.addEventListener('mousemove', this.handleMouseMove);
-    document.addEventListener('mouseup', this.handleMouseUp);
+    if (this.isTouch()) {
+      document.addEventListener('touchmove', this.handleDragMove);
+      document.addEventListener('touchend', this.handleDragEnd);
+    } else {
+      document.addEventListener('mousemove', this.handleDragMove);
+      document.addEventListener('mouseup', this.handleDragEnd);
+    }
   }
 
   componentWillUnmount() {
@@ -39,27 +48,33 @@ class DraggableItem extends React.Component {
 
   getMousePosition(e) {
     const { horizontal } = this.props;
-    return horizontal ? e.clientX : e.clientY;
+    const position = e.targetTouches ? e.targetTouches[0] : e;
+    return horizontal ? position.clientX : position.clientY;
   }
 
-  handleMouseDown(e) {
-    const { itemPosition, onDragStart } = this.props;
-    
-    e.preventDefault(); // Prevent selection
-
-    onDragStart({
-      currentMousePosition: this.getMousePosition(e),
-      // The dragged item's position is relative to its original position, not to the position 
-      // computed by its current index
-      originalItemPosition: itemPosition,
-      startMousePosition: this.getMousePosition(e),
-    });
-
-    this.addListeners();
+  getTouchIdentifier(e) {
+    return e.targetTouches ? e.targetTouches[0].identifier : null;
   }
 
-  handleMouseMove(e) {
+  handleDragEnd(e) {
+    const { onDragEnd } = this.props;
+
+    if (!this.isCurrentTouch(this.getTouchIdentifier(e))) {
+      return;
+    }
+
+    onDragEnd();
+
+    this.removeListeners();
+  }
+
+  handleDragMove(e) {
     const { maxMousePosition, minMousePosition, onDragMove } = this.props;
+
+    if (!this.isCurrentTouch(this.getTouchIdentifier(e))) {
+      return;
+    }
+
     const currentMousePosition = clamp(
       this.getMousePosition(e),
       minMousePosition,
@@ -71,17 +86,44 @@ class DraggableItem extends React.Component {
     });
   }
 
-  handleMouseUp() {
-    const { onDragEnd } = this.props;
+  handleDragStart(e) {
+    const { itemPosition, onDragStart } = this.props;
     
-    onDragEnd();
+    e.preventDefault(); // Prevent selection
 
-    this.removeListeners();
+    const currentMousePosition = this.getMousePosition(e);
+    this.setState({
+      touchIdentifier: this.getTouchIdentifier(e),
+    }, () => {
+      onDragStart({
+        currentMousePosition,
+        // The dragged item's position is relative to its original position, not to the position
+        // computed by its current index
+        originalItemPosition: itemPosition,
+        startMousePosition: currentMousePosition,
+      });
+
+      this.addListeners();
+    });
+  }
+
+  isCurrentTouch(touchIdentifier) {
+    return this.state.touchIdentifier === touchIdentifier;
+  }
+
+  isTouch() {
+    const { touchIdentifier } = this.state;
+    return touchIdentifier !== null;
   }
 
   removeListeners() {
-    document.removeEventListener('mousemove', this.handleMouseMove);
-    document.removeEventListener('mouseup', this.handleMouseUp);
+    if (this.isTouch()) {
+      document.removeEventListener('touchmove', this.handleDragMove);
+      document.removeEventListener('touchend', this.handleDragEnd);
+    } else {
+      document.removeEventListener('mousemove', this.handleDragMove);
+      document.removeEventListener('mouseup', this.handleDragEnd);
+    }
   }
   
   render() {
@@ -107,7 +149,7 @@ class DraggableItem extends React.Component {
         className
       ),
       ghost: ghost && dragging,
-      onHandleMouseDown: this.handleMouseDown,
+      onDragStart: this.handleDragStart,
     });
   }
 }

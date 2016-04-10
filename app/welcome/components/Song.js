@@ -9,12 +9,12 @@ class Song extends React.Component {
     dragging: React.PropTypes.bool,
     song: ImmutablePropTypes.map.isRequired,
     ghost: React.PropTypes.bool,
-    onHandleMouseDown: React.PropTypes.func,
+    onDragStart: React.PropTypes.func,
     style: React.PropTypes.object,
   };
 
   render() {
-    const { className, dragging, ghost, onHandleMouseDown, song, style } = this.props;
+    const { className, dragging, ghost, onDragStart, song, style } = this.props;
 
     return (
       <div
@@ -31,7 +31,8 @@ class Song extends React.Component {
             styles.handle,
             dragging && styles['handle--dragging']
           )}
-          onMouseDown={onHandleMouseDown}
+          onMouseDown={onDragStart}
+          onTouchStart={onDragStart}
         >
           <i className={classNames(styles.handleIcon, 'fa', 'fa-bars')} />
         </div>
