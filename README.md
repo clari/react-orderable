@@ -23,9 +23,8 @@ Who's using React Orderable?
 
 Comparison to other libraries
 ---
-- Unlike [jQuery Sortable](https://jqueryui.com/sortable), React Orderable manipulates the DOM purely through React.
-- Unlike [RubaXa Sortable](https://github.com/RubaXa/Sortable), React Orderable manipulates the DOM purely through React.
-- [React DnD](https://github.com/gaearon/react-dnd) is a wrapper around the DnD API. React Orderable doesn't use DnD. Instead, we implement reordering using mouse events. I think this is a simpler and more direct approach because we don't want to show the browser's ghost image and we don't want to configure separate drop targets.
+- Unlike [jQuery Sortable](https://jqueryui.com/sortable) and [RubaXa Sortable](https://github.com/RubaXa/Sortable), React Orderable manipulates the DOM purely through React.
+- Compared to [React DnD](https://github.com/gaearon/react-dnd), (a) React Orderable is usable out of the box for reordering and (b) React Orderable does not use the DnD API. Instead, we use mouse events. This means we don't have to override the browser's default ghost image or configure drop targets.
 
 Candidates for improvements
 ---
