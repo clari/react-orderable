@@ -12,10 +12,17 @@
     "reorderable",
     "sortable"
   ],
+  "main": "react-orderable.js",
+  "files": [
+    "react-orderable.js",
+    "react-orderable.css"
+  ],
   "scripts": {
     "build:gh-pages": "NODE_ENV=production webpack --config ./webpack.config.gh-pages.js",
-    "clean": "rm -rf build",
+    "build:npm": "NODE_ENV=production webpack --config ./webpack.config.npm.js",
+    "clean": "rm -rf build react-orderable.*",
     "deploy:gh-pages": "[ $(git rev-parse --abbrev-ref HEAD) = 'master' ] && git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && mv build/index.html index.html && git add -f build && git commit -am 'update build' && git push -f && git checkout master",
+    "prepublish": "npm run clean && npm run build:npm",
     "start": "webpack-dev-server --config ./webpack.config.dev.js"
   },
   "dependencies": {

@@ -1,8 +1,4 @@
 # React Orderable
-## TODO
-- gh-pages build
-- npm build
-
 ## Demo
 [Try it](http://clariussystems.github.io/react-orderable)
 
@@ -15,6 +11,11 @@
 
 ## Usage
 ```javascript
+import 'react-orderable/react-orderable.css';
+import Orderable from 'react-orderable';
+
+// ...
+
 <Orderable
   animated
   className={styles.songs}
@@ -58,6 +59,7 @@ This is the interface required of the item components.
 | className | Class name for the item's div |
 | dragging | Whether this item is being dragged |
 | ghost | Whether this is a ghost item |
+| id | Item id used to keep track of order |
 | onHandleMouseDown | Mouse down handler for the item's handle (this can be the item itself) |
 | style | Style for the item's div |
 
