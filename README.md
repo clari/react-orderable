@@ -17,6 +17,31 @@ Features
 - Ghost item
 - Item movement is constrained to a single axis (x or y)
 
+Usage
+---
+```javascript
+<Orderable
+  animated
+  className={styles.songs}
+  ghost
+  itemSize={90}
+  onChange={this.handleChange}
+>
+  {songs.map(song => {
+    return (
+      <Song
+        className={styles.song}
+        id={song.get('name')}
+        key={song.get('name')}
+        song={song}
+      />
+    );
+  })}
+</Orderable>
+```
+
+[Full example](blob/master/app/containers/Welcome.js)
+
 Who's using React Orderable?
 ---
 - [Clari](http://www.clari.com)

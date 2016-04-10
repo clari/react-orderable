@@ -15,7 +15,7 @@
   "scripts": {
     "build:gh-pages": "NODE_ENV=production webpack --config ./webpack.config.gh-pages.js",
     "clean": "rm -rf build",
-    "deploy:gh-pages": "[ $(git rev-parse --abbrev-ref HEAD) = 'master' ] && git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && mv build/template.html index.html && git add -f build && git commit -am 'update build' && git push -f && git checkout master",
+    "deploy:gh-pages": "[ $(git rev-parse --abbrev-ref HEAD) = 'master' ] && git checkout gh-pages && git reset --hard master && npm run clean && npm run build:gh-pages && mv build/index.html index.html && git add -f build && git commit -am 'update build' && git push -f && git checkout master",
     "start": "webpack-dev-server --config ./webpack.config.dev.js"
   },
   "dependencies": {

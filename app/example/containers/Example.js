@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import ExampleItem from './ExampleItem';
-import Orderable from '../../src/components/Orderable';
+import ExampleItem from '../components/ExampleItem';
+import Orderable from '../../../src/components/Orderable';
 import React from 'react';
 import styles from './Example.scss';
 

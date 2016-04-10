@@ -4,12 +4,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    'webpack/hot/dev-server',
-    './app/entrypoint'
-  ],
+  entry: './app/welcome/entrypoint',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
     path: 'build',
     publicPath: 'build/'
   },
@@ -31,9 +28,9 @@ module.exports = {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin('bundle.[hash].css'),
     new HtmlWebpackPlugin({
-      filename: './template.html',
+      template: './template.html',
       inject: true
     })
   ],

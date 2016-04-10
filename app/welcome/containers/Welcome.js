@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Orderable from '../../src/components/Orderable';
+import Orderable from '../../../src/components/Orderable';
 import React from 'react';
-import Song from './Song';
+import Song from '../components/Song';
 import styles from './Welcome.scss';
 
 class Welcome extends React.Component {
