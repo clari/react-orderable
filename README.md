@@ -40,7 +40,7 @@
 ### Orderable interface
 
 | Property | Required | Default | Description |
-| - | - |
+| --- | --- |
 | animated | N | false | Whether to animate item position during a drag |
 | className | N | | Class name for the Orderable component's div |
 | ghost | N | false | Whether to show a ghost item when an item is being dragged |
@@ -53,7 +53,7 @@
 This is the interface required of the item components.
 
 | Property | Description |
-| | |
+| --- | --- |
 | className | Class name for the item's div |
 | dragging | Whether this item is being dragged |
 | ghost | Whether this is a ghost item |
