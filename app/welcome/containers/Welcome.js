@@ -15,11 +15,6 @@ class Welcome extends React.Component {
   static defaultProps = {
     songs: Immutable.List([
       Immutable.Map({
-        name: 'Sleep on the Floor',
-        artist: 'The Lumineers',
-        time: '3:31',
-      }),
-      Immutable.Map({
         name: 'Ophelia',
         artist: 'The Lumineers',
         time: '2:40',
@@ -28,6 +23,11 @@ class Welcome extends React.Component {
         name: 'Cleopatra',
         artist: 'The Lumineers',
         time: '3:21',
+      }),
+      Immutable.Map({
+        name: 'Sleep on the Floor',
+        artist: 'The Lumineers',
+        time: '3:31',
       }),
       Immutable.Map({
         name: 'Gun Song',
