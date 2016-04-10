@@ -1,0 +1,76 @@
+@import '../variables';
+
+:local(.artist) {
+  color: #AFA6B3;
+  font-size: 14px;
+}
+
+:local(.footer) {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+:local(.handle) {
+  align-items: center;
+  cursor: grab;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 60px;
+
+  &:local(.handle--dragging) {
+    cursor: grabbing;
+  }
+}
+
+:local(.handleIcon) {
+  color: #AFA6B3;
+  font-size: 18px;
+}
+
+:local(.name) {
+  color: #DE3D6A;
+  font-size: 16px;
+}
+
+:local(.song) {
+  background-color: white;
+  display: flex;
+  overflow: hidden;
+  padding-right: 30px;
+
+  &:local(.song--dragging) {
+    box-shadow: 0 5px 10px 0 rgba(black, 0.1);
+  }
+
+  &:local(.song--ghost) {
+    opacity: 0.5;
+  }
+
+  &:not(:local(.song--dragging)) {
+    &::before {
+      border-top: 1px solid #F2EEEC;
+      content: '';
+      left: 60px;
+      position: absolute;
+      right: 30px;
+      top: 0;
+    }
+  }
+}
+
+:local(.songInfo) {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 1px;
+}
+
+:local(.time) {
+  color: #AFA6B3;
+  font-size: 14px;
+  font-weight: bold;
+}

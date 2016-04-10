@@ -28,6 +28,13 @@ module.exports = {
           path.join(__dirname, 'src')
         ],
         loaders: ['style', 'css?localIdentName=react-orderable-[name]-[local]', 'postcss', 'sass']
+      },
+      {
+        test: /\.(png|jpg)$/,
+        include: [
+          path.join(__dirname, 'app')
+        ],
+        loaders: ['file']
       }
     ]
   },
