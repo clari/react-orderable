@@ -61,7 +61,7 @@ class Welcome extends React.Component {
     }, Immutable.Map());
 
     this.setState({
-      songs: ids.map(id => songIndex.get(id)),
+      songs: Immutable.List(ids).map(id => songIndex.get(id)),
     });
   }
 

@@ -15,8 +15,10 @@
 
 ## Usage
 ```javascript
+import 'babel-polyfill'; // Orderable requires an ES6 polyfill
 import 'react-orderable/react-orderable.css';
 import Orderable from 'react-orderable';
+import React from 'react';
 
 // ...
 
@@ -52,7 +54,7 @@ import Orderable from 'react-orderable';
 | ghost | N | false | Whether to show a ghost item when an item is being dragged |
 | horizontal | N | false | Whether this is a horizontal or vertical list |
 | itemSize | Y | | Item height for vertical lists, item width for horizontal lists |
-| onChange | Y | | Callback that receives an ordered list of item ids when a drag completes |
+| onChange | Y | | Callback that receives an ordered array of item ids when a drag completes |
 
 Items inside an Orderable must have an id property (similar to key) which is used to keep track of item order. We need to pass id here because [key is not accessible by components](https://gist.github.com/jimfb/fb2a04fe3fa4637d7d62).
 

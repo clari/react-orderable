@@ -1,6 +1,6 @@
+import areSetsEqual from '../utils/areSetsEqual';
 import clamp from 'lodash.clamp';
 import classNames from 'classnames';
-import Immutable from 'immutable';
 import invariant from 'invariant';
 import React from 'react';
 import styles from './Orderable.scss';
@@ -40,10 +40,10 @@ class Orderable extends React.Component {
 
   componentWillReceiveProps(nextProps, nextState) {
     if (this.isDragging(nextState)) {
-      const itemIds = this.getItemIds(this.props.children).toSet();
-      const nextItemIds = this.getItemIds(nextProps.children).toSet();
+      const itemIds = new Set(this.getItemIds(this.props.children));
+      const nextItemIds = new Set(this.getItemIds(nextProps.children));
       invariant(
-        Immutable.is(itemIds, nextItemIds),
+        areSetsEqual(itemIds, nextItemIds),
         'Cannot change item id set during drag'
       );
     }
@@ -59,7 +59,7 @@ class Orderable extends React.Component {
   }
 
   getItemIds(children) {
-    return Immutable.List(React.Children.toArray(children)).map(item => this.getItemId(item));
+    return React.Children.toArray(children).map(item => this.getItemId(item));
   }
 
   getItemIndex(id) {
@@ -106,7 +106,7 @@ class Orderable extends React.Component {
     // Compute the dragged item position, constrained by the list bounds
     const draggedIndex = this.getItemIndex(draggedId);
     const minMousePosition = -(originalItemPosition - startMousePosition);
-    const maxMousePosition = minMousePosition + itemSize * (itemIds.size - 1);
+    const maxMousePosition = minMousePosition + itemSize * (itemIds.length - 1);
     const currentMousePosition = clamp(
       this.getMousePosition(e),
       minMousePosition,
@@ -121,20 +121,20 @@ class Orderable extends React.Component {
         const prevIndex = draggedIndex - 1;
         const prevItemPosition = itemSize * prevIndex;
         if ((itemPosition - prevItemPosition) / itemSize < 0.5) {
-          newIds = itemIds
-            .set(draggedIndex, itemIds.get(prevIndex))
-            .set(prevIndex, itemIds.get(draggedIndex));
+          newIds = itemIds.slice();
+          newIds[draggedIndex] = itemIds[prevIndex];
+          newIds[prevIndex] = itemIds[draggedIndex];
         }
       }
 
       // If the dragged item overlaps the next item, swap the dragged item with the next item
-      if (draggedIndex !== itemIds.size - 1) {
+      if (draggedIndex !== itemIds.length - 1) {
         const nextIndex = draggedIndex + 1;
         const nextItemPosition = itemSize * nextIndex;
         if ((nextItemPosition - itemPosition) / itemSize < 0.5) {
-          newIds = itemIds
-            .set(draggedIndex, itemIds.get(nextIndex))
-            .set(nextIndex, itemIds.get(draggedIndex));
+          newIds = itemIds.slice();
+          newIds[draggedIndex] = itemIds[nextIndex];
+          newIds[nextIndex] = itemIds[draggedIndex];
         }
       }
 

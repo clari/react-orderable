@@ -27,10 +27,8 @@
   },
   "dependencies": {
     "classnames": "^2.2.0",
-    "immutable": "^3.7.6",
     "invariant": "^2.2.1",
-    "lodash.clamp": "^4.0.2",
-    "react-immutable-proptypes": "^1.7.0"
+    "lodash.clamp": "^4.0.2"
   },
   "peerDependencies": {
     "react": "^15.0.1",
@@ -54,10 +52,12 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.15.0",
+    "immutable": "^3.7.6",
     "node-sass": "^3.4.0",
     "postcss-loader": "^0.8.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-immutable-proptypes": "^1.7.0",
     "react-transform-hmr": "^1.0.0",
     "sass-loader": "^3.1.0",
     "style-loader": "^0.13.0",

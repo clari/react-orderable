@@ -38,7 +38,7 @@ class Example extends React.Component {
     this.handleHorizontalChange = this.handleHorizontalChange.bind(this);
   }
 
-  handleChange(itemIds) {
+  handleChange(ids) {
     const { items } = this.state;
     
     const itemIndex = items.reduce((result, item) => {
@@ -46,7 +46,7 @@ class Example extends React.Component {
     }, Immutable.Map());
     
     this.setState({
-      items: itemIds.map(id => itemIndex.get(id)),
+      items: Immutable.List(ids).map(id => itemIndex.get(id)),
     });
   }
 
