@@ -5,7 +5,3 @@
 # Node
 *.log
 node_modules
-
-# Webpack
-build
-react-orderable.*

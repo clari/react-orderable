@@ -2,18 +2,15 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
+    // Too much overhead switching between parens notation and brace notation
     "arrow-body-style": 0,
-    "max-len": [2, 100, 2, {"ignoreUrls": true, "ignorePattern": "^//.*|^import.*"}],
+    // Immutable.js does not follow this convention
     "new-cap": 0,
-    "no-nested-ternary": 0,
-    "no-param-reassign": 0,
-    "no-shadow": 0,
+    // IntelliJ adds trailing spaces
     "no-trailing-spaces": 0,
-    "prefer-template": 0,
-    "react/jsx-no-bind": 0,
-    "react/no-did-update-set-state": 0,
-    "react/prop-types": 0,
-    "react/sort-comp": 0,
-    "spaced-comment": 0
+    // Too much overhead switching between function syntax and class syntax if state or ref is needed
+    "react/prefer-stateless-function": 0,
+    // Prefer alphabetical
+    "react/sort-comp": 0
   }
 }
