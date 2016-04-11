@@ -17,11 +17,12 @@ class Orderable extends React.Component {
   constructor(props) {
     super(props);
 
-    const { children } = props;
     this.state = {
       currentMousePosition: null,
       draggedId: null,
-      itemIds: this.getItemIds(children),
+      // During a drag, store the itemIds so we can rearrange them. Once the drag completes, this
+      // value is unused.
+      itemIds: null,
       originalItemPosition: null,
       startMousePosition: null,
     };
@@ -39,10 +40,6 @@ class Orderable extends React.Component {
         areSetsEqual(itemIds, nextItemIds),
         'Cannot change item id set during drag'
       );
-    } else {
-      this.setState({
-        itemIds: this.getItemIds(nextProps.children),
-      });
     }
   }
 
@@ -52,11 +49,6 @@ class Orderable extends React.Component {
 
   getItemIds(children) {
     return React.Children.toArray(children).map(item => this.getItemId(item));
-  }
-
-  getItemIndex(id) {
-    const { itemIds } = this.state;
-    return itemIds.indexOf(id);
   }
 
   getItemPositionProperty() {
@@ -85,7 +77,7 @@ class Orderable extends React.Component {
     const { draggedId, itemIds, originalItemPosition, startMousePosition } = this.state;
 
     // Compute the dragged item position, constrained by the list bounds
-    const draggedIndex = this.getItemIndex(draggedId);
+    const draggedIndex = itemIds.indexOf(draggedId);
     if (options.currentMousePosition !== this.state.currentMousePosition) {
       // If the dragged item overlaps the previous item, swap the dragged item with the previous
       // item
@@ -120,9 +112,11 @@ class Orderable extends React.Component {
   }
 
   handleDragStart(id, options) {
+    const { children } = this.props;
     this.setState({
       currentMousePosition: options.currentMousePosition,
       draggedId: id,
+      itemIds: this.getItemIds(children),
       originalItemPosition: options.originalItemPosition,
       startMousePosition: options.startMousePosition,
     });
@@ -150,20 +144,24 @@ class Orderable extends React.Component {
 
     const {
       currentMousePosition,
-      itemIds,
+      itemIds: pendingItemIds,
       originalItemPosition,
       startMousePosition,
     } = this.state;
 
     const childArray = React.Children.toArray(children);
 
+    let itemIds;
     let draggedItem;
     let minMousePosition;
     let maxMousePosition;
     if (this.isDragging(this.state)) {
+      itemIds = pendingItemIds;
       draggedItem = childArray.find(item => this.isDraggedItem(this.getItemId(item)));
       minMousePosition = -(originalItemPosition - startMousePosition);
       maxMousePosition = minMousePosition + itemSize * (itemIds.length - 1);
+    } else {
+      itemIds = this.getItemIds(children);
     }
 
     return (
@@ -175,7 +173,7 @@ class Orderable extends React.Component {
       >
       {childArray.map(item => {
         const id = this.getItemId(item);
-        const index = this.getItemIndex(id);
+        const index = itemIds.indexOf(id);
         const itemPosition = itemSize * index;
         return (
           <DraggableItem

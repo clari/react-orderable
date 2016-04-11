@@ -1,6 +1,5 @@
 # React Orderable
 ## Checklist before 0.2.0 release
-- Determine best way to keep itemIds and children in sync
 - Improve demo page (add examples of different kinds of uses)
 - Make demo page responsive
 
