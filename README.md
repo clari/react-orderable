@@ -1,7 +1,6 @@
 # React Orderable
 ## Checklist before 0.2.0 release
-- Use in Clari view panel
-- Commit dist
+- Improve demo page (add examples of different kinds of uses)
 
 ## Demo
 [Try it](http://clariussystems.github.io/react-orderable)
