@@ -59,7 +59,8 @@ class DraggableItem extends React.Component {
   handleDragEnd(e) {
     const { onDragEnd } = this.props;
 
-    if (!this.isCurrentTouch(this.getTouchIdentifier(e))) {
+    const touchIdentifier = e.changedTouches ? e.changedTouches[0].identifier : null;
+    if (!this.isCurrentTouch(touchIdentifier)) {
       return;
     }
 
