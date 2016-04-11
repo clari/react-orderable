@@ -39,6 +39,10 @@ class Orderable extends React.Component {
         areSetsEqual(itemIds, nextItemIds),
         'Cannot change item id set during drag'
       );
+    } else {
+      this.setState({
+        itemIds: this.getItemIds(nextProps.children),
+      });
     }
   }
 
@@ -175,7 +179,7 @@ class Orderable extends React.Component {
         const itemPosition = itemSize * index;
         return (
           <DraggableItem
-            animated={animated}
+            animated={this.isDragging(this.state) && animated}
             dragging={this.isDraggedItem(id)}
             ghost={ghost}
             horizontal={horizontal}
