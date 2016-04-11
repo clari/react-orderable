@@ -25,19 +25,19 @@ class Welcome extends React.Component {
         time: '3:21',
       }),
       Immutable.Map({
-        name: 'Sleep on the Floor',
-        artist: 'The Lumineers',
-        time: '3:31',
-      }),
-      Immutable.Map({
-        name: 'Gun Song',
-        artist: 'The Lumineers',
-        time: '3:36',
-      }),
-      Immutable.Map({
         name: 'Angela',
         artist: 'The Lumineers',
         time: '3:21',
+      }),
+      Immutable.Map({
+        name: 'In the Light',
+        artist: 'The Lumineers',
+        time: '3:52',
+      }),
+      Immutable.Map({
+        name: 'Gale Song',
+        artist: 'The Lumineers',
+        time: '3:14',
       }),
     ]),
   };

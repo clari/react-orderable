@@ -31,8 +31,8 @@ class Orderable extends React.Component {
     this.handleDragStart = this.handleDragStart.bind(this);
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    if (this.isDragging(nextState)) {
+  componentWillReceiveProps(nextProps) {
+    if (this.isDragging(this.state)) {
       const itemIds = new Set(this.getItemIds(this.props.children));
       const nextItemIds = new Set(this.getItemIds(nextProps.children));
       invariant(
