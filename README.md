@@ -2,6 +2,7 @@
 ## Checklist before 0.2.0 release
 - Improve demo page (add examples of different kinds of uses)
 - Make demo page responsive
+- The example code should be directly usable. There are pieces missing right now.
 
 ## Demo
 [Try it](http://clariussystems.github.io/react-orderable)
