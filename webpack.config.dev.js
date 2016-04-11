@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: [
     'webpack/hot/dev-server',
-    './app/welcome/entrypoint'
+    './examples/entrypoint'
   ],
   output: {
     filename: 'bundle.js',

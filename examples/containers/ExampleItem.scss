@@ -1,0 +1,14 @@
+@import '../variables';
+
+:local(.item) {
+  align-items: center;
+  background-color: white;
+  border: 2px dashed black;
+  cursor: grab;
+  display: flex;
+  padding: 0 10px;
+
+  &:local(.item--dragging) {
+    cursor: grabbing;
+  }
+}
