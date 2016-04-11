@@ -1,0 +1,14 @@
+.react-orderable-DraggableItem-item {
+  position: absolute; }
+  .react-orderable-DraggableItem-item.react-orderable-DraggableItem-item--ghost {
+    display: none; }
+  .react-orderable-DraggableItem-item:not(.react-orderable-DraggableItem-item--horizontal) {
+    left: 0;
+    right: 0; }
+    .react-orderable-DraggableItem-item:not(.react-orderable-DraggableItem-item--horizontal).react-orderable-DraggableItem-item--animated {
+      transition: top 0.1s ease-in-out; }
+  .react-orderable-DraggableItem-item.react-orderable-DraggableItem-item--horizontal {
+    bottom: 0;
+    top: 0; }
+    .react-orderable-DraggableItem-item.react-orderable-DraggableItem-item--horizontal.react-orderable-DraggableItem-item--animated {
+      transition: left 0.1s ease-in-out; }
