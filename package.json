@@ -1,6 +1,6 @@
 {
   "name": "react-orderable",
-  "version": "0.2.0-rc1",
+  "version": "0.2.1",
   "description": "Orderable list component",
   "author": "Matthew King <mking@clari.com>",
   "license": "MIT",
