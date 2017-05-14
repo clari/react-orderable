@@ -1,4 +1,6 @@
 # React Orderable
+## DEPRECATED - Recommend https://github.com/clauderic/react-sortable-hoc instead!
+
 ## Checklist before 0.2.0 release
 - Improve demo page (add examples of different kinds of uses)
 - Make demo page responsive
